@@ -1,25 +1,24 @@
 import "./App.css";
-import Navigation from "./customer/components/Navigation/Navigation";
 import HomePage from "./customer/pages/HomePage/HomePage";
-import Footer from "./customer/components/Footer/Footer";
-import Product from "./customer/components/Product/Product";
-import ProductDetails from "./customer/components/ProductDetails/ProductDetails";
-import Cart from "./customer/components/Cart/Cart";
-import Checkout from "./customer/components/Checkout/Checkout";
-import Order from "./customer/components/Order/Order";
-import OrderDetails from "./customer/components/Order/OrderDetails";
-import { Route, Routes } from "react-router-dom";
 import CustomerRouters from "./Routers/CustomerRouters";
 import AdminRouters from "./Routers/AdminRouters";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/*" element={<CustomerRouters />}></Route>
-        <Route path="/admin/*" element={<AdminRouters />}></Route>
-      </Routes>
-    </>
+    <Routes>
+      {/* Direct route for /login */}
+      <Route path="/login" element={<HomePage />} />
+
+      {/* Admin routes */}
+      <Route path="/admin/*" element={<AdminRouters />} />
+
+      {/* Customer routes */}
+      <Route path="/*" element={<CustomerRouters />} />
+
+      {/* Optional fallback: redirect unknown routes to /login */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   );
 }
 
